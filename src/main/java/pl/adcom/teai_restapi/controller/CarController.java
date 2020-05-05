@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping(value = "/cars", produces = {
+        MediaType.APPLICATION_XML_VALUE,
+        MediaType.APPLICATION_JSON_VALUE })
 public class CarController {
 
     private CarService carService;
@@ -31,9 +33,7 @@ public class CarController {
         return new ResponseEntity<>(carService.findAllCars(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}", produces = {
-                        MediaType.APPLICATION_XML_VALUE,
-                        MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping("/{id}")
     public ResponseEntity<Car> getAllCars(@PathVariable long id){
 
         Optional<Car> car = carService.findCarById(id);
@@ -44,9 +44,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/color/{color}", produces = {
-                        MediaType.APPLICATION_XML_VALUE,
-                        MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping("/color/{color}")
     public ResponseEntity<List<Car>> getCarsByColor(@PathVariable String color){
 
         try{
@@ -61,9 +59,7 @@ public class CarController {
 
     }
 
-    @PostMapping(produces = {
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping()
     public ResponseEntity addNewCar(@Validated @RequestBody Car car){
 
         boolean isAdded = carService.addCar(car);
@@ -74,9 +70,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping(produces = {
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping()
     public ResponseEntity modCar(@Validated @RequestBody Car car) {
         Optional<Car> modCar = carService.modifyCar(car);
 
@@ -86,9 +80,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PatchMapping(value = "/{id}", produces = {
-                MediaType.APPLICATION_XML_VALUE,
-                MediaType.APPLICATION_JSON_VALUE })
+    @PatchMapping("/{id}")
     public ResponseEntity modColorCarById(@Validated @RequestParam Color color,
                                           @PathVariable long id) {
         Optional<Car> modColorCar = carService.changeColorCarById(color, id);
@@ -99,9 +91,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping(value = "/{id}", produces = {
-                MediaType.APPLICATION_XML_VALUE,
-                MediaType.APPLICATION_JSON_VALUE })
+    @DeleteMapping("/{id}")
     public ResponseEntity removeCar(@PathVariable long id) {
         Optional<Car> delCar = carService.removeCarById(id);
 
