@@ -1,17 +1,18 @@
 package pl.adcom.teai_restapi.model;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 public class Car {
 
-    @NotNull(message = "id cannot be null")
+    @NotBlank(message = "id cannot be null")
     private long id;
-    @NotNull(message = "mark cannot be null")
+    @NotBlank(message = "mark cannot be null")
     private String mark;
-    @NotNull(message = "model cannot be null")
+    @NotBlank(message = "model cannot be null")
     private String model;
-    @NotNull(message = "color cannot be null")
+    @NotBlank(message = "color cannot be null")
     private Color color;
 
     public Car() {
