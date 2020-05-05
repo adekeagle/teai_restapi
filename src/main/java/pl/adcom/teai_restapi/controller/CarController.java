@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.adcom.teai_restapi.model.Car;
 import pl.adcom.teai_restapi.model.Color;
@@ -63,7 +64,7 @@ public class CarController {
     @PostMapping(produces = {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity addNewCar(@RequestBody Car car){
+    public ResponseEntity addNewCar(@Validated @RequestBody Car car){
 
         boolean isAdded = carService.addCar(car);
 
@@ -76,7 +77,7 @@ public class CarController {
     @PutMapping(produces = {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity modCar(@RequestBody Car car) {
+    public ResponseEntity modCar(@Validated @RequestBody Car car) {
         Optional<Car> modCar = carService.modifyCar(car);
 
         if (modCar.isPresent()) {
@@ -88,7 +89,7 @@ public class CarController {
     @PatchMapping(value = "/{id}", produces = {
                 MediaType.APPLICATION_XML_VALUE,
                 MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity modColorCarById(@RequestParam Color color,
+    public ResponseEntity modColorCarById(@Validated @RequestParam Color color,
                                           @PathVariable long id) {
         Optional<Car> modColorCar = carService.changeColorCarById(color, id);
 
