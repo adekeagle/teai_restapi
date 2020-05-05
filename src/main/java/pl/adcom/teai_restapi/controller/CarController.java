@@ -26,9 +26,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping(produces = {
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping()
     public ResponseEntity<List<Car>> getAllCars(){
         return new ResponseEntity<>(carService.findAllCars(), HttpStatus.OK);
     }
